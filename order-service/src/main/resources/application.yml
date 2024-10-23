@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /
+
+spring:
+  application:
+    name: order-service
+  couchbase:
+    cluster:
+      timeout: 15
+    bucket:
+      timeout: 15
+      name: Order
+      user: Administrator
+      password: password
+    host: localhost
+
+client:
+  product-service:
+    base-url: http://localhost:2222
+    connect-timeout: 5000
+    read-timeout: 10000
+

@@ -1,0 +1,67 @@
+version: '3.1'
+services:
+  couchbase:
+    networks:
+      - my_network
+    image: bentonam/couchbase-docker:enterprise
+    environment:
+      CLUSTER_USERNAME: Administrator
+      CLUSTER_PASSWORD: password
+      CLUSTER_NAME: Cluster
+      SERVICES: data,index,query
+      CLUSTER_RAMSIZE: 800
+      BUCKET: Product
+      BUCKET_RAMSIZE: 300
+      NODE_INIT_INDEX_PATH: /opt/couchbase/var/lib/couchbase/indexes
+      RBAC_USERNAME: Administrator
+      RBAC_PASSWORD: password
+    container_name: couchbase_okur
+    ports:
+      - "8091-8094:8091-8094"
+      - "11210:11210"
+
+  product-service:
+    networks:
+      - my_network
+    container_name: product-service
+    environment:
+      - SPRING_PROFILES_ACTIVE =docker
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    ports:
+      - "2222:2222"
+    restart: unless-stopped
+    depends_on:
+      - couchbase
+
+  order-service:
+    networks:
+      - my_network
+    container_name: order-service
+    environment:
+      - SPRING_PROFILES_ACTIVE = docker
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - couchbase
+      - product-service
+
+networks:
+  my_network:
+    driver: bridge
+
+#  billing-service:
+#    container_name: billing-service
+#    build:
+#      context: ./billing-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    restart: unless-stopped
+#    depends_on:
+#      - couchbase

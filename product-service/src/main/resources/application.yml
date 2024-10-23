@@ -1,0 +1,31 @@
+server:
+  port: 2222
+
+spring:
+  application:
+    name: product-service
+  couchbase:
+    cluster:
+      timeout: 115
+    bucket:
+      timeout: 115
+      name: Product
+      user: Administrator
+      password: password
+    host: localhost
+
+client:
+  user-service:
+    base-url: https://jsonplaceholder.typicode.com
+    connect-timeout: 5000
+    read-timeout: 10000
+  message-service:
+    base-url: http://localhost:8082/api/message
+    connect-timeout: 3000
+    read-timeout: 5000
+
+
+couchbase:
+  buckets:
+    - Product
+    - Order
