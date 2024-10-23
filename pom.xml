@@ -25,9 +25,7 @@
 
     <modules>
         <module>order-service</module>
-        <module>billing-service</module>
         <module>product-service</module>
-        <module>dockerfile</module>
     </modules>
 
     <dependencies>
