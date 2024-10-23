@@ -57,28 +57,4 @@ public class OrderService {
 
         return order;
     }
-
-//    public void placeOrder2(OrderRequestDTO orderRequestDTO) {
-//        ProductValidationSummaryResponse validate = productClientService.validate(ProductValidationRequest.convert(orderRequestDTO));
-//        for (ProductValidationResponse result : validate.getResults()) {
-//            if (!result.isValid()) {
-//                throw new ProductInvalidException(result.getMessage());
-//            }
-//        }
-//
-//        productClientService.decrementStock(ProductStockDecrementSummaryRequest.convert(orderRequestDTO));
-//        Order order = new Order();
-//        order.setDate(String.valueOf(new Date()));
-//        order.setProducts(validate.getResults().stream().map(Product::create).toList());
-//        order.setTotalPrice(order.getTotalPrice());
-//
-//        orderRepository.save(order);
-
-
-
-
-        // todo kodu temizleyeceğiz
-
-        // todo read me
-//    }
 }
